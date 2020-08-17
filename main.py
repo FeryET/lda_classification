@@ -9,6 +9,7 @@ def main():
     df = datareader.to_dataframe()
     texts = list(df["text"])
     texts = SpacyCleaner().process_documents_multithread(texts)
+    texts = list(df["text"])
     texts = GensimCleaner().process_documents_multithread(texts)
     df["processed"] = texts
     print(df)
