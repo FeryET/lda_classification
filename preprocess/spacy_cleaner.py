@@ -1,29 +1,28 @@
 from typing import List
-import multiprocessing as mp
+
 import spacy
+from tqdm import tqdm
 
 from preprocess.base import BasePreprocessor
 
-nlp = spacy.load('en_core_web_sm', disable=['tagger', 'parser', 'ner'])
+nlp = spacy.load('en', disable=['tagger', 'parser', 'ner'])
 nlp.add_pipe(nlp.create_pipe('sentencizer'))
 
-workers = mp.cpu_count() // 2
+MIN_TOKEN_LENGTH = 3
 
 
 class SpacyCleaner(BasePreprocessor):
     def _process_token(self, token):
-        def is_valid(input_token):
-            return token.is_alpha and not token.is_stop
-
-        return token.lemma_.lower() if is_valid(token) else ""
+        return token.lemma_.lower()
 
     def process_text(self, text):
-        return " ".join([self._process_token(token) for token in nlp(text)])
+        def is_valid(token):
+            return token.is_alpha and not token.is_stop and len(
+                token) > MIN_TOKEN_LENGTH
+
+        return " ".join([self._process_token(token) for token in nlp(text) if
+                         is_valid(token)])
 
     def process_documents(self, docs: List):
-        for doc in nlp.pipe(docs, batch_size=30):
+        for doc in tqdm(nlp.pipe(docs, batch_size=30)):
             yield " ".join([self._process_token(token) for token in doc])
-
-    def multi_thread_process_documents(self, docs: List):
-        with mp.Pool(processes=workers) as pool:
-            return pool.map(self.process_text, docs)

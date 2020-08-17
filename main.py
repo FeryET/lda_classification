@@ -1,8 +1,17 @@
 from dataloader import CogSciData, DataReader
+from preprocess.spacy_cleaner import SpacyCleaner
+from preprocess.gensim_cleaner import GensimCleaner
+
+
 def main():
     path = "/home/farhood/Projects/datasets_of_cognitive/Data/Unprocessed Data"
     datareader = DataReader(path, data_type=CogSciData)
-    print(datareader.to_pandas())
+    df = datareader.to_dataframe()
+    texts = list(df["text"])
+    texts = SpacyCleaner().process_documents_multithread(texts)
+    texts = GensimCleaner().process_documents_multithread(texts)
+    df["processed"] = texts
+    print(df)
 
 
 if __name__ == '__main__':

@@ -14,4 +14,4 @@ class GensimCleaner(BasePreprocessor):
         raise NotImplementedError
 
     def process_text(self, input_text):
-        return preprocess_string(input_text, GensimCleaner.FILTERS)
+        return " ".join(preprocess_string(input_text, GensimCleaner.FILTERS))

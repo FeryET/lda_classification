@@ -64,6 +64,6 @@ class DataReader:
                     file_path = os.path.join(root, f)
                     yield self.object_type(file_path)
 
-    def to_pandas(self):
+    def to_dataframe(self):
         elements = [row.as_dict() for row in self]
         return pd.DataFrame(elements)
