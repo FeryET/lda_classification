@@ -1,11 +1,8 @@
-from dataloader.cogsci import CogSciDataReader
-
-
+from dataloader import CogSciData, DataReader
 def main():
     path = "/home/farhood/Projects/datasets_of_cognitive/Data/Unprocessed Data"
-    datareader = CogSciDataReader(path)
-    for item in datareader:
-        print(item.text.strip())
+    datareader = DataReader(path, data_type=CogSciData)
+    print(datareader.to_pandas())
 
 
 if __name__ == '__main__':
