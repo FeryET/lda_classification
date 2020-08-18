@@ -1,1 +1,1 @@
-# from evaluation.lda_coherence_evaluation import LDACoherenceEvaluator
+from evaluation.lda_coherence_evaluation import LDACoherenceEvaluator
