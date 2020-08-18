@@ -56,8 +56,8 @@ class GensimLDAVectorizer(BaseEstimator, TransformerMixin):
         lda_bag_of_topics = [self.lda[c] for c in cur_bow]
         num_terms = self.lda.num_topics
         return corpus2dense(lda_bag_of_topics,
-                            num_terms) if self.is_dense else corpus2csc(
-                lda_bag_of_topics, num_terms)
+                            num_terms).T if self.is_dense else corpus2csc(
+                lda_bag_of_topics, num_terms).T
 
     def fit_transform(self, docs, y=None, **fit_params):
         return self.fit(docs).transform(docs)
