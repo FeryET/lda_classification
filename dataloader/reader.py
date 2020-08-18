@@ -3,41 +3,7 @@ from abc import ABC, abstractmethod
 from typing import List, Iterable, Generic, TypeVar
 import pandas as pd
 
-
-class BaseData(ABC):
-    def __init__(self, file_path):
-        self.file_path = file_path
-        self.text = self._text
-
-    @property
-    @abstractmethod
-    def label(self):
-        pass
-
-    @property
-    def _text(self):
-        with open(self.file_path) as readfile:
-            t = readfile.read()
-            return t
-
-    def __str__(self):
-        return self.text
-
-    def update(self, text):
-        self.text = text
-        return self
-
-    def __len__(self):
-        return len(self.text)
-
-    def __repr__(self):
-        return "LABEL: {}\t TEXT: {}".format(self.label, self.text)
-
-    def __getitem__(self, sliced):
-        return self.text[sliced]
-
-    def as_dict(self):
-        return {"text": self.text, "label": self.label}
+from dataloader.datatypes import BaseData
 
 
 class DataReader:
