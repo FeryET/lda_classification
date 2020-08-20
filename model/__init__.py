@@ -1,2 +1,1 @@
-from model.classification_pipeline import LDAClassificationPipeline
 from model.gensim_lda_vectorizer import GensimLDAVectorizer
