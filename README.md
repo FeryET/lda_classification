@@ -19,7 +19,9 @@ All in a few lines of code, completely compatible with `sklearn`'s Transformer A
 
 
 If you want to install via Pypi:
+
 ```pip install lda_classification```
+
 If you want to install from the sourcefile:
 ```
 git clone https://github.com/FeryET/lda_classification.git
