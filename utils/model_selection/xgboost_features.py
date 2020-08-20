@@ -4,9 +4,11 @@ from sklearn.metrics import accuracy_score
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_val_score
 from tqdm import tqdm
 from xgboost.sklearn import XGBClassifier, XGBRegressor
+from xgboost.plotting import plot_importance
 import numpy as np
 from sklearn.model_selection import train_test_split
 import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def _evaluate_thresholds(model, thresholds, x_train, y_train, x_test=None,
@@ -42,8 +44,12 @@ def _optimal_values(results):
 
 
 class XGBoostFeatureSelector(TransformerMixin, BaseEstimator):
-
     def __init__(self, n_repeats=5, n_splits=10, **kwargs):
+        """
+        :param n_repeats: number of repeats for inner KFold crossvalidation
+        :param n_splits: number of splits for inner KFold crossvalidation
+        :param kwargs: parameters for training the inner XGBClassifer model.
+        """
         self.model = XGBClassifier(**kwargs)
         self.n_repeats = n_repeats
         self.n_splits = n_splits
@@ -67,9 +73,8 @@ class XGBoostFeatureSelector(TransformerMixin, BaseEstimator):
             x_test, y_test = X[test_idx], y[test_idx]
             self.model.fit(x_train, y_train)
             thresholds = sorted(set(self.model.feature_importances_))
-            scores.extend(
-                _evaluate_thresholds(self.model, thresholds, x_train, y_train,
-                                     x_test, y_test))
+            scores.extend(_evaluate_thresholds(self.model, thresholds, x_train,
+                                               y_train, x_test, y_test))
         optimal_n_features, optimal_threshold = _optimal_values(scores)
         self.model.fit(X, y)
         importances = sorted(list(enumerate(self.model.feature_importances_)),
@@ -82,3 +87,12 @@ class XGBoostFeatureSelector(TransformerMixin, BaseEstimator):
         if self.selected_indexes is None:
             raise RuntimeError("You should train the feature selector first.")
         return X[:, self.selected_indexes]
+
+    def plot_importance(self, *args, **kwargs):
+        """
+        Checkout xgboost.plotting.plot_importance for a list of arguments
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        return plot_importance(self.model, *args, **kwargs)
