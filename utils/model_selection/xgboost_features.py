@@ -70,7 +70,6 @@ class XGBoostFeatureSelector(TransformerMixin, BaseEstimator):
                 _evaluate_thresholds(self.model, thresholds, x_train, y_train,
                                      x_test, y_test))
         optimal_n_features, optimal_threshold = _optimal_values(scores)
-        print(optimal_n_features, optimal_threshold)
         self.model.fit(X, y)
         importances = sorted(list(enumerate(self.model.feature_importances_)),
                              key=lambda x: x[1], reverse=True)
