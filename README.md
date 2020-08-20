@@ -12,8 +12,12 @@ Instantly train an LDA model with a scikit-learn compatible wrapper around gensi
 
 All in a few lines of code, completely compatible with `sklearn`'s Transformer API.
 
+---------------------
 
-####Installation:
+
+#### Installation:
+
+
 If you want to install via Pypi:
 ```pip install lda_classification```
 If you want to install from the sourcefile:
@@ -22,7 +26,11 @@ git clone https://github.com/FeryET/lda_classification.git
 cd lda_classification/
 python setup.py install
 ```
-####Requirements:
+------------------------------------
+
+
+#### Requirements:
+
 
 ```
 gensim == 3.8.0
@@ -36,8 +44,12 @@ tqdm == 4.48.2
 xgboost == 1.1.1
 ```
 
- 
-####Example: 
+ ------------------------------------
+
+
+#### Example: 
+
+
 ```python
 from model import GensimLDAVectorizer
 from preprocess.spacy_cleaner import SpacyCleaner
