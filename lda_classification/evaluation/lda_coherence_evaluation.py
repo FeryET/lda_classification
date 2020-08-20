@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from tqdm import tqdm
 
-from model.gensim_lda_vectorizer import GensimLDAVectorizer
+from lda_classification.model.gensim_lda_vectorizer import GensimLDAVectorizer
 
 
 class LDACoherenceEvaluator:

@@ -1,10 +1,7 @@
-from dataloader import CogSciData, DataReader
-from model.gensim_lda_vectorizer import GensimLDAVectorizer
-from preprocess.gensim_cleaner import GensimCleaner
-from preprocess.spacy_cleaner import SpacyCleaner
+from lda_classification.dataloader import CogSciData, DataReader
+from lda_classification.preprocess import SpacyCleaner
 import matplotlib.pyplot as plt
-from tqdm import tqdm
-from evaluation.lda_coherence_evaluation import LDACoherenceEvaluator
+from lda_classification.evaluation.lda_coherence_evaluation import LDACoherenceEvaluator
 import argparse
 
 

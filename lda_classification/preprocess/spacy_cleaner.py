@@ -3,7 +3,7 @@ from typing import List
 import spacy
 from tqdm import tqdm
 
-from preprocess.base import BasePreprocessor
+from lda_classification.preprocess.base import BasePreprocessor
 
 nlp = spacy.load('en', disable=['tagger', 'parser', 'ner'])
 nlp.add_pipe(nlp.create_pipe('sentencizer'))

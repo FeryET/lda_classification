@@ -1,9 +1,7 @@
 import os
-from abc import ABC, abstractmethod
-from typing import List, Iterable, Generic, TypeVar
 import pandas as pd
 
-from dataloader.datatypes import BaseData
+from lda_classification.dataloader.datatypes import BaseData
 
 
 class DataReader:

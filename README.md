@@ -51,9 +51,9 @@ xgboost == 1.1.1
 
 
 ```python
-from model import GensimLDAVectorizer
-from preprocess.spacy_cleaner import SpacyCleaner
-from utils.model_selection.xgboost_features import XGBoostFeatureSelector
+from lda_classification.model import GensimLDAVectorizer
+from lda_classification.preprocess import SpacyCleaner
+from lda_classification.utils import XGBoostFeatureSelector
 
 # docs, labels = FETCH YOUR DATASET 
 # y = ENCODED_LABELS

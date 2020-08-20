@@ -6,8 +6,8 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 
-from model import GensimLDAVectorizer
-from preprocess.spacy_cleaner import SpacyCleaner
+from lda_classification.model import GensimLDAVectorizer
+from lda_classification.preprocess import SpacyCleaner
 
 data, target = fetch_20newsgroups(subset='all', return_X_y=True)
 y_true = LabelEncoder().fit_transform(target)

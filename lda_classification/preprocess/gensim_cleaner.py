@@ -1,5 +1,5 @@
-from preprocess.base import BasePreprocessor
-from gensim.parsing.preprocessing import (STOPWORDS, stem_text, strip_tags,
+from lda_classification.preprocess.base import BasePreprocessor
+from gensim.parsing.preprocessing import (stem_text, strip_tags,
                                           strip_short, strip_punctuation2,
                                           strip_multiple_whitespaces,
                                           remove_stopwords, strip_numeric,
