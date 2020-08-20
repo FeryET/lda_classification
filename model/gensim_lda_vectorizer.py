@@ -72,3 +72,21 @@ class GensimLDAVectorizer(BaseEstimator, TransformerMixin):
         return CoherenceModel(model=self.lda, texts=docs, corpus=self.corpus,
                               coherence=coherence,
                               processes=self.kwargs["workers"])
+
+    def save(self, fname, *args, **kwargs):
+        self.lda.save(fname=fname, *args, **kwargs)
+
+    @classmethod
+    def load(self, fname, return_dense=True, max_df=0.5, min_df=5, *args,
+             **kwargs):
+        lda = LdaMulticore.load(fname, *args, **kwargs)
+        lda = LdaMulticore()
+        alpha = lda.alpha
+        eta = lda.eta
+        iterations = lda.iterations
+        random_seed = lda.random_state
+        workers = lda.workers
+        num_topics = lda.num_topics
+        return GensimLDAVectorizer(num_topics, alpha, eta, workers,
+                                         iterations, return_dense, max_df,
+                                         min_df, random_seed)
