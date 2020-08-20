@@ -47,6 +47,7 @@ class XGBoostFeatureSelector(TransformerMixin, BaseEstimator):
         self.model = XGBClassifier(**kwargs)
         self.n_repeats = n_repeats
         self.n_splits = n_splits
+        self.selected_indexes = None
 
     def fit_transform(self, X, y=None, **fit_params):
         return self.fit(X, y).transform(X)
@@ -78,4 +79,6 @@ class XGBoostFeatureSelector(TransformerMixin, BaseEstimator):
         return self
 
     def transform(self, X):
+        if self.selected_indexes is None:
+            raise RuntimeError("You should train the feature selector first.")
         return X[:, self.selected_indexes]
