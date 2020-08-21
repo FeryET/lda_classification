@@ -15,5 +15,5 @@ setuptools.setup(name="lda_classification", version="0.0.11",
                  install_requires=["gensim == 3.8.0", "matplotlib == 3.1.2",
                                    "numpy == 1.19.1", "pandas == 1.1.0",
                                    "scikit_learn == 0.23.1", "spacy == 2.3.1",
-                                   "tqdm == 4.48.2", "xgboost == 1.1.1", ],
+                                   "tqdm == 4.48.2", ],
                  python_requires='>=3.7.5')

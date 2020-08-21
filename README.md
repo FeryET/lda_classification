@@ -15,10 +15,10 @@ All in a few lines of code, completely compatible with `sklearn`'s Transformer A
 ---------------------
 
 
-#### Installation:
+### Installation:
 
 
-If you want to install via Pypi:
+If you want to install via Pypi use the following command:
 
 ```pip install lda_classification```
 
@@ -31,7 +31,7 @@ python setup.py install
 ------------------------------------
 
 
-#### Requirements:
+### Requirements:
 
 
 ```
@@ -43,13 +43,17 @@ scikit_learn == 0.23.1
 setuptools == 49.6.0.post20200814
 spacy == 2.3.1
 tqdm == 4.48.2
-xgboost == 1.1.1
-```
 
+```
+#####Optional:
+If you want to automate the feature selection using this package you can also install `xgboost` to use the util class.
+```
+xgboost == 1.1.1 (Optional)
+```
  ------------------------------------
 
 
-#### Example: 
+### Example: 
 
 
 ```python
