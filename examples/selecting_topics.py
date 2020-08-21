@@ -1,9 +1,9 @@
 from sklearn.preprocessing import LabelEncoder
 
-from lda_classification.dataloader import CogSciData, DataReader
+from lda_classification.data import CogSciData, DataReader
 from lda_classification.model.gensim_lda_vectorizer import GensimLDAVectorizer
-from lda_classification.preprocess import SpacyCleaner
-from lda_classification.utils import XGBoostFeatureSelector
+from lda_classification.preprocess.spacy_cleaner import SpacyCleaner
+from lda_classification.utils.model_selection import XGBoostFeatureSelector
 import argparse
 
 

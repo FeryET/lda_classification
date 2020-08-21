@@ -18,6 +18,7 @@ class LDACoherenceEvaluator:
             c = vectorizer.evaluate_coherence(docs,
                                               coherence=coherence_method).get_coherence()
             coherence_scores.append(c)
+        best_coherence_idx = coherence_scores.index(max(coherence_scores))
         if plot is True:
             if ax is None:
                 ax = plt.subplot()
@@ -31,14 +32,14 @@ class LDACoherenceEvaluator:
             if grid is True:
                 ax.grid()
             if mark_max is True:
-                idx = coherence_scores.index(max(coherence_scores))
-                ax.annotate("{:.3f}".format(coherence_scores[idx]),
-                            (self.topic_range[idx], coherence_scores[idx]),
-                            textcoords="offset points",
-                            # how to position the text
-                            xytext=(3, 3), size=8)
-                ax.axvline(self.topic_range[idx], alpha=0.5, color="r",
+                ax.annotate(
+                        "{:.3f}".format(coherence_scores[best_coherence_idx]), (
+                                self.topic_range[best_coherence_idx],
+                                coherence_scores[best_coherence_idx]),
+                        textcoords="offset points",  # how to position the text
+                        xytext=(3, 3), size=8)
+                ax.axvline(self.topic_range[best_coherence_idx], alpha=0.5, color="r",
                            linestyle="--")
-            return coherence_scores, ax
+            return self.topic_range[best_coherence_idx], ax
         else:
-            return coherence_scores, None
+            return self.topic_range[best_coherence_idx], None
