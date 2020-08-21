@@ -1,7 +1,8 @@
 from lda_classification.dataloader import CogSciData, DataReader
 from lda_classification.preprocess import SpacyCleaner
 import matplotlib.pyplot as plt
-from lda_classification.evaluation.lda_coherence_evaluation import LDACoherenceEvaluator
+from lda_classification.evaluation.lda_coherence_evaluation import \
+    LDACoherenceEvaluator
 import argparse
 
 
@@ -10,10 +11,10 @@ def run(path):
     reader = DataReader(path, CogSciData)
     df = reader.to_dataframe()
     texts = SpacyCleaner().process_documents_multithread(list(df["text"]))
-    evaluator = LDACoherenceEvaluator(min_topic=2, max_topic=100, step=10,
-                                      alpha="symmetric", beta=None, workers=4,
-                                      lda_iterations=300, return_dense=True,
-                                      max_df=0.5, min_df=5, random_seed=300)
+    evaluator = LDACoherenceEvaluator(min_topic=2, return_dense=True,
+                                      max_topic=100, step=10, alpha="symmetric",
+                                      beta=None, workers=4, lda_iterations=300,
+                                      max_df=0.5, min_df=5, random_state=300)
     ax = evaluator.evaluate(texts, mark_max=True)
     plt.show()
 

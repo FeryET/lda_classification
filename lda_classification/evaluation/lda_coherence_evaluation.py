@@ -39,5 +39,6 @@ class LDACoherenceEvaluator:
                             xytext=(3, 3), size=8)
                 ax.axvline(self.topic_range[idx], alpha=0.5, color="r",
                            linestyle="--")
-            else:
-                return coherence_scores
+            return coherence_scores, ax
+        else:
+            return coherence_scores, None

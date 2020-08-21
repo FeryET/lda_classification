@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 class BaseData(ABC):
     """This is the base class for any type of data that is going to be
     handled by
-    dataloader.reader.DataReader"""
+    data.reader.DataReader"""
 
     def __init__(self, file_path):
         self.file_path = file_path

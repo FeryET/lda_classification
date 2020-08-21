@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-from lda_classification.dataloader.datatypes import BaseData
+from lda_classification.data.datatypes import BaseData
 
 
 class DataReader:
