@@ -3,7 +3,7 @@ import setuptools
 with open("README.md") as fh:
     long_desc = fh.read()
 
-setuptools.setup(name="lda_classification", version="0.0.11",
+setuptools.setup(name="lda_classification", version="0.0.2",
                  author="Farhood Etaati", author_email="farhoodet@gmail.com",
                  long_description=long_desc,
                  long_description_content_type="text/markdown",
