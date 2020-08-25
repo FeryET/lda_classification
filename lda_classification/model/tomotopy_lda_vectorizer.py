@@ -12,19 +12,21 @@ seed=None, corpus=None, transform=None
 class TomotopyLDAVectorizer(BaseEstimator, TransformerMixin):
     def __init__(self, num_of_topics, workers=2, train_iter=10, infer_iter=100,
                  train_steps=100, return_dense=True, sparse_threshold=0.01,
-                 **kwargs):
-        kwargs["k"] = num_of_topics
-        self.kwargs = kwargs
+                 min_cf=5, rm_top=10):
+        self.num_of_topics = num_of_topics
+        self.min_cf = min_cf
+        self.rm_top = rm_top
         self.workers = workers
         self.train_steps = train_steps
         self.train_iter = train_iter
         self.infer_iter = infer_iter
         self.return_dense = return_dense
-        self.sparse_threshold = sparse_threshold
-        self.lda = None
+        self.sparse_threshold = sparse_threshold  # self.lda = LDAModel(
+        # k=self.num_of_topics, min_cf=min_cf, rm_top=rm_top)
 
     def fit(self, docs):
-        self.lda = LDAModel(**self.kwargs)
+        self.lda = LDAModel(k=self.num_of_topics, min_cf=self.min_cf,
+                            rm_top=self.rm_top)
         for d in docs:
             self.lda.add_doc(d)
         for _ in range(0, self.train_steps * self.train_iter, self.train_iter):
