@@ -38,14 +38,15 @@ python setup.py install
 gensim == 3.8.0
 matplotlib == 3.1.2
 numpy == 1.19.1
-pandas == 1.1.0
-scikit_learn == 0.23.1
-setuptools == 49.6.0.post20200814
+setuptools~=49.6.0
 spacy == 2.3.1
 tqdm == 4.48.2
-
+scikit-learn~=0.23.1
+tomotopy~=0.9.1
 ```
-#####Optional:
+
+##### Optional:
+
 If you want to automate the feature selection using this package you can also install `xgboost` to use the util class.
 ```
 xgboost == 1.1.1 (Optional)

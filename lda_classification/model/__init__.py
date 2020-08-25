@@ -1,1 +1,2 @@
 from lda_classification.model.gensim_lda_vectorizer import GensimLDAVectorizer
+from lda_classification.model.tomotopy_lda_vectorizer import TomotopyLDAVectorizer
