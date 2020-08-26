@@ -2,7 +2,8 @@ import logging
 
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.decomposition import PCA
-from sklearn.model_selection import (RepeatedStratifiedKFold, cross_val_score, )
+from sklearn.model_selection import (GridSearchCV, RepeatedStratifiedKFold,
+                                     cross_val_score, )
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.svm import SVC
@@ -29,17 +30,13 @@ docs = processor.transform(docs)
 
 folds = RepeatedStratifiedKFold(n_splits=10, n_repeats=10)
 
-vectorizer = TomotopyLDAVectorizer(num_of_topics=12, workers=workers, min_df=5,
+vectorizer = TomotopyLDAVectorizer(num_of_topics=15, workers=workers, min_df=5,
                                    rm_top=5)
 clf = SVC()
-pca = PCA(n_components=0.95)
-
-# It's recommended to do data-agnostic preprocessing only one time to all
-# data, but I've added it here just for the sake of fewer lines of code
 
 pipe = Pipeline([("vectorizer", vectorizer), ("scalar", StandardScaler()),
-                 ("dimension reductor", pca), ("classifier", clf)])
+                 ("classifier", clf)])
 
-results = cross_val_score(pipe, docs, y_true, cv=folds, n_jobs=2, verbose=1,
+results = cross_val_score(pipe, docs, y_true, cv=folds, n_jobs=2, verbose=2,
                           scoring="accuracy")
 print("Accuracy -> mean: {}\tstd: {}".format(results.mean(), results.std()))
