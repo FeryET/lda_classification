@@ -1,17 +1,21 @@
-import logging
 import argparse
+import logging
+
 import matplotlib.pyplot as plt
-from gensim.corpora import Dictionary
+import numpy as np
+from matplotlib import cm
 from sklearn.datasets import fetch_20newsgroups
-from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from tomotopy import HDPModel
-from matplotlib import cm
-from lda_classification.model import GensimLDAVectorizer, TomotopyLDAVectorizer
+
+from lda_classification.model import TomotopyLDAVectorizer
 from lda_classification.preprocess.gensim_cleaner import GensimCleaner
 
-import numpy as np
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
+                    level=logging.INFO)
+
+n_workers = 6
 
 
 def plot_topic_clusters(ax, x2d, y, labels):
@@ -19,21 +23,11 @@ def plot_topic_clusters(ax, x2d, y, labels):
     colors = cm.get_cmap("Spectral", len(labels))
     for i, l in enumerate(labels):
         c = colors(i / len(labels))
-        center = x2d.mean(axis=0)
         ax.scatter(x2d[y == i, 0], x2d[y == i, 1], color=c, label=l, alpha=0.7)
     ax.grid()
     ax.legend(prop={'size': 6})
     ax.autoscale()
     return ax
-
-
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
-                    level=logging.INFO)
-n_workers = 6
-
-# Change this to false if you want to search for the
-# number of topics via c_v score (super slow)
-IS_HIERARCHICAL = True
 
 
 def main(use_umap=True):
@@ -90,14 +84,14 @@ def main(use_umap=True):
 
     print(x2d_test.shape)
     dpi = 300
-    fig, axes = plt.subplots(ncols=2, figsize=(3000/dpi, 1500/dpi), dpi=dpi)
+    fig, axes = plt.subplots(ncols=2, figsize=(3000 / dpi, 1500 / dpi), dpi=dpi)
     plot_topic_clusters(axes[0], x2d_train, y_train, labels)
     plot_topic_clusters(axes[1], x2d_test, y_test, labels)
     axes[0].set_title("Train Subset")
     axes[1].set_title("Test Subset")
     fig.suptitle(title)
     fig.tight_layout()
-    plt.savefig("results/20newsgroup_sports_vis.png")
+    plt.show()
 
 
 if __name__ == '__main__':
