@@ -12,7 +12,7 @@ from lda_classification.preprocess.spacy_cleaner import SpacyCleaner
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
                     level=logging.INFO)
-n_workers = 6
+workers = 6
 
 # Change this to false if you want to search for the
 # number of topics via c_v score (super slow)
@@ -23,24 +23,23 @@ docs, target = fetch_20newsgroups(subset='all', return_X_y=True,
 
 y_true = LabelEncoder().fit_transform(target)
 
-processor = SpacyCleaner(chunksize=1000, workers=4)
+processor = SpacyCleaner(chunksize=1000, workers=workers)
 
 docs = processor.transform(docs)
 
 folds = RepeatedStratifiedKFold(n_splits=10, n_repeats=10)
 
-vectorizer = TomotopyLDAVectorizer(num_of_topics=17, workers=2,
-                                   min_cf=5, rm_top=10)
+vectorizer = TomotopyLDAVectorizer(num_of_topics=12, workers=workers, min_df=5,
+                                   rm_top=5)
 clf = SVC()
 pca = PCA(n_components=0.95)
 
 # It's recommended to do data-agnostic preprocessing only one time to all
 # data, but I've added it here just for the sake of fewer lines of code
 
-pipe = Pipeline([("vectorizer", vectorizer),
-                 ("scalar", StandardScaler(with_mean=False)),
+pipe = Pipeline([("vectorizer", vectorizer), ("scalar", StandardScaler()),
                  ("dimension reductor", pca), ("classifier", clf)])
 
-results = cross_val_score(pipe, docs, y_true, cv=folds, n_jobs=4, verbose=1,
+results = cross_val_score(pipe, docs, y_true, cv=folds, n_jobs=2, verbose=1,
                           scoring="accuracy")
 print("Accuracy -> mean: {}\tstd: {}".format(results.mean(), results.std()))

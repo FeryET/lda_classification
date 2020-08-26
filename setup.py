@@ -6,7 +6,7 @@ with open("README.md") as fh:
 with open("requirements.txt") as req:
     requirements = req.readlines()
 
-setuptools.setup(name="lda_classification", version="0.0.23",
+setuptools.setup(name="lda_classification", version="0.0.25",
                  author="Farhood Etaati", author_email="farhoodet@gmail.com",
                  long_description=long_desc,
                  long_description_content_type="text/markdown",
@@ -15,4 +15,4 @@ setuptools.setup(name="lda_classification", version="0.0.23",
                  classifiers=["Programming Language :: Python :: 3",
                               "License :: OSI Approved :: MIT License",
                               "Operating System :: OS Independent"],
-                 install_requires=requirements, python_requires='>=3.7.5')
+                 install_requires=requirements, python_requires='>=3.5')
