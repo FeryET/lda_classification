@@ -21,7 +21,8 @@ class SpacyCleaner(BasePreprocessor):
                 _is_valid(token)]
 
     def process_documents(self, docs: List):
-        for doc in tqdm(nlp.pipe(docs, batch_size=30)):
+        for doc in tqdm(nlp.pipe(docs, batch_size=30), total=len(docs),
+                        desc="processing documents"):
             yield [self._process_token(token) for token in doc if
                    _is_valid(token)]
 
