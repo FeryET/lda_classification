@@ -6,7 +6,7 @@ with open("README.md") as fh:
 with open("requirements.txt") as req:
     requirements = req.readlines()
 
-setuptools.setup(name="lda_classification", version="0.0.29",
+setuptools.setup(name="lda_classification", version="0.0.3",
                  author="Farhood Etaati", author_email="farhoodet@gmail.com",
                  long_description=long_desc,
                  long_description_content_type="text/markdown",
